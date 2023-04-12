@@ -1,9 +1,8 @@
 package com.syfur.movietime.utils
 
 import com.syfur.movietime.models.MovieModel
-import com.syfur.movietime.responses.MoviePopularResponse
-import com.syfur.movietime.responses.MovieSearchResponse
-import retrofit2.Call
+import com.syfur.movietime.responses.MovieResponse
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -12,21 +11,26 @@ import retrofit2.http.Query
 
 interface RetrofitInterface {
 
+    // Returns Currently Popular Movies
     @GET("movie/popular")
-    fun getPopular(@Query("api_key") apiKey: String): Call<MoviePopularResponse>
+    fun getPopular(
+        @Query("api_key") apiKey: String
+    ): Response<MovieResponse>
 
+    // Returns Movies Containing Search Text
     @GET("search/movie")
     fun searchMovie(
         @Query("api_key") apiKey: String,
         @Query("query") searchQuery: String,
         @Query("page") page: Int = 1
-    ): Call<MoviePopularResponse>
+    ): Response<MovieResponse>
 
+    // Returns the Movie with Given ID
     @GET("movie/{id}")
-    fun getMovie(
+    suspend fun getMovie(
         @Path("id") movie_id: Int,
         @Query("api_key") apiKey: String
-    ): Call<MovieModel>
+    ): Response<MovieModel>
 
 
 
