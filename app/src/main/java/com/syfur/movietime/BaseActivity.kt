@@ -6,12 +6,9 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationBarView
-import com.syfur.movietime.ui.HomeFragment
-import com.syfur.movietime.ui.MenuFragment
-import com.syfur.movietime.ui.MovieListFragment
-import com.syfur.movietime.ui.TvSeriesFragment
-import com.syfur.movietime.ui.WatchlistFragment
+import com.syfur.movietime.utils.NavigationAdapter
 
 open class BaseActivity : AppCompatActivity() {
     private lateinit var progressDialog: Dialog
@@ -43,17 +40,34 @@ open class BaseActivity : AppCompatActivity() {
 
 
     fun navigationManagement(navigationView: NavigationBarView) {
-        val container = R.id.mainFrame
+        val viewPager = findViewById<ViewPager2>(R.id.vpMainFrame)
+        val pagerAdapter = NavigationAdapter(supportFragmentManager, lifecycle)
+        viewPager.adapter = pagerAdapter
+
+
         navigationView.setOnItemSelectedListener {
             when(it.itemId) {
-                R.id.navMenuHome -> changeFragment(container, HomeFragment())
-                R.id.navMenuMovie -> changeFragment(container, MovieListFragment())
-                R.id.navMenuTV -> changeFragment(container, TvSeriesFragment())
-                R.id.navMenuBookmark -> changeFragment(container, WatchlistFragment())
-                R.id.navMenuMore -> changeFragment(container, MenuFragment())
+                R.id.navMenuHome -> viewPager.currentItem = 0
+                R.id.navMenuMovie -> viewPager.currentItem = 1
+                R.id.navMenuTV -> viewPager.currentItem = 2
+                R.id.navMenuBookmark -> viewPager.currentItem = 3
+                R.id.navMenuMore -> viewPager.currentItem = 4
             }
             true
         }
+
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                when(position) {
+                    0 -> navigationView.selectedItemId = R.id.navMenuHome
+                    1 -> navigationView.selectedItemId = R.id.navMenuMovie
+                    2 -> navigationView.selectedItemId = R.id.navMenuTV
+                    3 -> navigationView.selectedItemId = R.id.navMenuBookmark
+                    4 -> navigationView.selectedItemId = R.id.navMenuMore
+                }
+            }
+        })
 
     }
 
