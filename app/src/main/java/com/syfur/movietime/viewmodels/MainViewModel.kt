@@ -9,7 +9,7 @@ import com.syfur.movietime.utils.Credentials
 import com.syfur.movietime.utils.RetrofitInterface
 import kotlinx.coroutines.launch
 
-class MovieListViewModel: ViewModel() {
+class MainViewModel: ViewModel() {
     private var _data = MutableLiveData<MovieModel>()
     val data: LiveData<MovieModel> get() = _data
 
