@@ -7,33 +7,22 @@
     android:orientation="vertical"
     tools:context=".MovieListActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="center"
-        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etSearchMovies"
+        <FrameLayout
+            android:id="@+id/mainFrame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_movie_name"
-            android:minHeight="48dp"
-            tools:ignore="VisualLintTextFieldSize" />
+            />
 
-        <Button
-            android:id="@+id/btnGetMovies"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="GetMovies" />
-
-    </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView2"

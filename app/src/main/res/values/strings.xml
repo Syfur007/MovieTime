@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">MovieTime</string>
     <string name="enter_movie_name">Enter Movie name</string>
+    <string name="home">Home</string>
+    <string name="movies">Movies</string>
+    <string name="tv_series">TV Series</string>
+    <string name="watchlist">Watchlist</string>
+    <string name="more">More</string>
 </resources>

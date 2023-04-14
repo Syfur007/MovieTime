@@ -5,28 +5,28 @@
 
         <item
             android:id="@+id/navMenuHome"
-            android:icon="@drawable/nav_icon_home"
-            android:title="Home" />
+            android:icon="@drawable/nav_icon_home_selector"
+            android:title="@string/home" />
 
         <item
             android:id="@+id/navMenuMovie"
-            android:icon="@drawable/nav_icon_movie"
-            android:title="Movies" />
+            android:icon="@drawable/nav_icon_movie_selector"
+            android:title="@string/movies" />
 
         <item
             android:id="@+id/navMenuTV"
-            android:icon="@drawable/nav_icon_tv"
-            android:title="TV Series" />
+            android:icon="@drawable/nav_icon_tv_selector"
+            android:title="@string/tv_series" />
 
         <item
             android:id="@+id/navMenuBookmark"
-            android:icon="@drawable/nav_icon_bookmark"
-            android:title="Watchlist" />
+            android:icon="@drawable/nav_icon_bookmark_selector"
+            android:title="@string/watchlist" />
 
         <item
             android:id="@+id/navMenuMore"
             android:icon="@drawable/nav_icon_more"
-            android:title="More" />
+            android:title="@string/more" />
     </group>
 
 </menu>
