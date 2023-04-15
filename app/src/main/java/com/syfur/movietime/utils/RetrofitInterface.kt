@@ -11,15 +11,22 @@ import retrofit2.http.Query
 
 interface RetrofitInterface {
 
-    // Returns Currently Popular Movies
+    // Returns List of Popular Movies
     @GET("movie/popular")
-    fun getPopular(
+    suspend fun getPopularMovies(
         @Query("api_key") apiKey: String
     ): Response<MovieResponse>
 
-    // Returns Movies Containing Search Text
+    // Returns List of Currently Trending Movies
+    @GET("trending/{movie}/{time_window}")
+    suspend fun getTrendingMovies(
+        @Path("time_window") time_window: String,
+        @Query("api_key") apiKey: String
+    ): Response<MovieResponse>
+
+    // Returns List of Movies Relevant to Search Text
     @GET("search/movie")
-    fun searchMovie(
+    suspend fun searchMovie(
         @Query("api_key") apiKey: String,
         @Query("query") searchQuery: String,
         @Query("page") page: Int = 1

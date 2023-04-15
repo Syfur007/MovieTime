@@ -1,23 +1,40 @@
 package com.syfur.movietime.ui
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.syfur.movietime.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.syfur.movietime.databinding.FragmentMovieListBinding
+import com.syfur.movietime.utils.MovieListAdapter
 
 class MovieListFragment : Fragment() {
-
+    private lateinit var binding: FragmentMovieListBinding
     private lateinit var viewModel: MovieListViewModel
+    private lateinit var moviesAdapter: MovieListAdapter
+    private lateinit var moviesRecyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        binding = FragmentMovieListBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[MovieListViewModel::class.java]
-        return inflater.inflate(R.layout.fragment_movie_list, container, false)
+        moviesRecyclerView = binding.rvMovieList
+        getMovies()
+        return binding.root
+    }
+
+    private fun getMovies() {
+        viewModel.fetchMovies()
+        viewModel.movies.observe(viewLifecycleOwner) {
+            moviesAdapter = MovieListAdapter(it)
+            moviesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+            moviesRecyclerView.adapter = moviesAdapter
+        }
     }
 
 }
