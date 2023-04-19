@@ -1,30 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="5dp"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="John Wick"
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/ivPoster"
+        android:layout_width="@dimen/ivPoster_width"
+        android:layout_height="@dimen/ivPoster_height"
+        app:riv_corner_radius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvOverview"
-        android:layout_width="395dp"
+        android:id="@+id/tvTitle"
+        android:layout_width="@dimen/ivPoster_width"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Ex-hitman John Wick comes out of retirement to track down the gangsters that took everything from him."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        android:layout_marginTop="5dp"
+        android:text="@string/john_wick"
+        app:layout_constraintEnd_toEndOf="@+id/ivPoster"
+        app:layout_constraintStart_toStartOf="@+id/ivPoster"
+        app:layout_constraintTop_toBottomOf="@+id/ratingIndicator" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:background="@drawable/circular_background"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/ratingIndicator"
+        app:layout_constraintEnd_toEndOf="@id/ratingIndicator"
+        app:layout_constraintStart_toStartOf="@+id/ratingIndicator"
+        app:layout_constraintTop_toTopOf="@+id/ratingIndicator">
+
+        <TextView
+            android:id="@+id/tvRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="@string/_85"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="@string/percent"
+            android:textSize="8sp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/tvRating"
+            app:layout_constraintTop_toTopOf="@+id/tvRating"
+            tools:ignore="SmallSp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/ratingIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:progress="70"
+        android:progressBackgroundTint="@color/purple_500"
+        app:indicatorColor="@color/purple_700"
+        app:indicatorSize="35dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivPoster"
+        app:layout_constraintStart_toStartOf="@+id/ivPoster"
+        app:layout_constraintTop_toBottomOf="@+id/ivPoster"
+        app:trackThickness="3dp"
+        app:trackColor="@color/purple_200" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

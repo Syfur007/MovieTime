@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.syfur.movietime.databinding.FragmentMovieListBinding
 import com.syfur.movietime.utils.MovieListAdapter
@@ -32,7 +32,7 @@ class MovieListFragment : Fragment() {
         viewModel.fetchMovies()
         viewModel.movies.observe(viewLifecycleOwner) {
             moviesAdapter = MovieListAdapter(it)
-            moviesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+            moviesRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
             moviesRecyclerView.adapter = moviesAdapter
         }
     }

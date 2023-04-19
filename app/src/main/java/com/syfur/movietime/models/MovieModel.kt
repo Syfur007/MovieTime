@@ -26,7 +26,7 @@ data class MovieModel(
     val tagline: String?,
     val title: String?,
     val video: Boolean?,
-    val vote_average: Double?,
+    val vote_average: Double,
     val vote_count: Int?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -79,7 +79,7 @@ data class MovieModel(
         parcel.writeString(tagline)
         parcel.writeString(title)
         parcel.writeByte(if (video == true) 1 else 0)
-        parcel.writeDouble(vote_average ?: 0.0)
+        parcel.writeDouble(vote_average)
         parcel.writeInt(vote_count ?: 0)
     }
 
