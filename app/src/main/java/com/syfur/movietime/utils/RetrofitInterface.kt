@@ -1,7 +1,9 @@
 package com.syfur.movietime.utils
 
 import com.syfur.movietime.models.MovieModel
+import com.syfur.movietime.models.TvModel
 import com.syfur.movietime.responses.MovieResponse
+import com.syfur.movietime.responses.TvResponse
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -56,19 +58,19 @@ interface RetrofitInterface {
     suspend fun getTrendingTVShow(
         @Path("time_window") time_window: String,
         @Query("api_key") apiKey: String
-    ): Response<MovieResponse>
+    ): Response<TvResponse>
 
     // List of Popular TV Shows
     @GET("tv/popular")
     suspend fun getPopularTVShow(
         @Query("api_key") apiKey: String
-    ): Response<MovieResponse>
+    ): Response<TvResponse>
 
     // List of Top-Rated TV Shows
     @GET("tv/top_rated")
     suspend fun getTopRatedTVShow(
         @Query("api_key") apiKey: String
-    ): Response<MovieResponse>
+    ): Response<TvResponse>
 
     // List of Searched TV Shows
     @GET("search/tv")
@@ -76,14 +78,14 @@ interface RetrofitInterface {
         @Query("api_key") apiKey: String,
         @Query("query") searchQuery: String,
         @Query("page") page: Int = 1
-    ): Response<MovieResponse>
+    ): Response<TvResponse>
 
     // TV Show with ID
     @GET("tv/{id}")
     suspend fun getTVShow(
         @Path("id") movie_id: Int,
         @Query("api_key") apiKey: String
-    ): Response<MovieModel>
+    ): Response<TvModel>
 
 
 

@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.os.Build
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
@@ -44,16 +43,14 @@ open class BaseActivity : AppCompatActivity() {
 
 
     fun navigationManagement(navigationView: NavigationBarView) {
-        val frameLayout = findViewById<FrameLayout>(R.id.flMainFrame)
-
 
         navigationView.setOnItemSelectedListener {
             when(it.itemId) {
-                R.id.navMenuHome -> changeFragment(R.id.flMainFrame, HomeFragment())
-                R.id.navMenuMovie -> changeFragment(R.id.flMainFrame, MovieListFragment())
-                R.id.navMenuTV -> changeFragment(R.id.flMainFrame, TvListFragment())
-                R.id.navMenuBookmark -> changeFragment(R.id.flMainFrame, WatchlistFragment())
-                R.id.navMenuMore -> changeFragment(R.id.flMainFrame, MenuFragment())
+                R.id.navMenuHome -> changeFragment(R.id.flMainFrame, HomeFragment(), true)
+                R.id.navMenuMovie -> changeFragment(R.id.flMainFrame, MovieListFragment(), false)
+                R.id.navMenuTV -> changeFragment(R.id.flMainFrame, TvListFragment(), true)
+                R.id.navMenuBookmark -> changeFragment(R.id.flMainFrame, WatchlistFragment(), true)
+                R.id.navMenuMore -> changeFragment(R.id.flMainFrame, MenuFragment(), true)
             }
             true
         }
@@ -61,9 +58,13 @@ open class BaseActivity : AppCompatActivity() {
     }
 
 
-    private fun changeFragment(container: Int, fragment: Fragment) {
+    private fun changeFragment(container: Int, fragment: Fragment, animation: Boolean) {
         val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(container, fragment).commit()
+        val fragmentTransaction = fragmentManager.beginTransaction().replace(container, fragment)
+        if (animation) {
+            fragmentTransaction.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_in_left).commit()
+        } else {
+            fragmentTransaction.commit()
+        }
     }
 }

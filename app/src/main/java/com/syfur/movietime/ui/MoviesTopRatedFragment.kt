@@ -9,13 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.syfur.movietime.databinding.FragmentMoviesTopratedBinding
-import com.syfur.movietime.utils.MovieTvAdapter
+import com.syfur.movietime.utils.MovieAdapter
 
 
 class MoviesTopRatedFragment : Fragment() {
     private lateinit var binding: FragmentMoviesTopratedBinding
     private lateinit var viewModel: MovieListViewModel
-    private lateinit var moviesAdapter: MovieTvAdapter
+    private lateinit var moviesAdapter: MovieAdapter
     private lateinit var topRatedMoviesRecyclerView: RecyclerView
 
     override fun onCreateView(
@@ -24,7 +24,7 @@ class MoviesTopRatedFragment : Fragment() {
     ): View {
         binding = FragmentMoviesTopratedBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[MovieListViewModel::class.java]
-        topRatedMoviesRecyclerView = binding.rvLatestMovieList
+        topRatedMoviesRecyclerView = binding.rvTopRatedMovieList
         getTopRatedMovies()
 
         return binding.root
@@ -33,7 +33,7 @@ class MoviesTopRatedFragment : Fragment() {
     private fun getTopRatedMovies() {
         viewModel.fetchTopRatedMovies()
         viewModel.topRatedMovies.observe(viewLifecycleOwner) {
-            moviesAdapter = MovieTvAdapter(it)
+            moviesAdapter = MovieAdapter(it)
             topRatedMoviesRecyclerView.layoutManager =
                 GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
             topRatedMoviesRecyclerView.adapter = moviesAdapter

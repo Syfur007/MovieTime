@@ -10,20 +10,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.squareup.picasso.Picasso
 import com.syfur.movietime.R
-import com.syfur.movietime.models.MovieModel
+import com.syfur.movietime.models.TvModel
 
-class MovieTvAdapter(
-    private val movieTvList: List<MovieModel>, private val itemCount: Int = movieTvList.size
-) : RecyclerView.Adapter<MovieTvAdapter.ViewHolder>() {
+class TvAdapter(
+    private val tvList: List<TvModel>,
+    private val itemCount: Int = tvList.size
+): RecyclerView.Adapter<TvAdapter.ViewHolder>() {
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val poster: ImageView = view.findViewById(R.id.ivPoster)
         val title: TextView = view.findViewById(R.id.tvTitle)
         val rating: TextView = view.findViewById(R.id.tvRating)
         val ratingIndicator: CircularProgressIndicator = view.findViewById(R.id.ratingIndicator)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie_tv, parent, false)
         return ViewHolder(view)
     }
@@ -32,18 +33,16 @@ class MovieTvAdapter(
         return itemCount
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val posterPath = movieTvList[position].poster_path
-        if (posterPath != null) {
-            val url = "https://image.tmdb.org/t/p/w500${posterPath}"
-            Picasso.get().load(url).into(holder.poster)
-        }
-        val rating = movieTvList[position].vote_average.times(10)
+    override fun onBindViewHolder(holder: TvAdapter.ViewHolder, position: Int) {
+        val posterPath = tvList[position].poster_path
+        val url = "https://image.tmdb.org/t/p/w500${posterPath}"
+        Picasso.get().load(url).into(holder.poster)
+        val rating = tvList[position].vote_average.times(10)
         holder.rating.text = rating.toInt().toString()
         holder.ratingIndicator.progress = rating.toInt()
         holder.ratingIndicator.setIndicatorColor(ratingIndicatorColor(rating)[0])
         holder.ratingIndicator.trackColor = ratingIndicatorColor(rating)[1]
-        holder.title.text = movieTvList[position].title
+        holder.title.text = tvList[position].name
     }
 
     private fun ratingIndicatorColor(rating: Double): List<Int> {
