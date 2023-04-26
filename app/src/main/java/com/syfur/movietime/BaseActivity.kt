@@ -4,11 +4,15 @@ import android.app.Dialog
 import android.os.Build
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationBarView
-import com.syfur.movietime.utils.NavigationAdapter
+import com.syfur.movietime.ui.HomeFragment
+import com.syfur.movietime.ui.MenuFragment
+import com.syfur.movietime.ui.MovieListFragment
+import com.syfur.movietime.ui.TvListFragment
+import com.syfur.movietime.ui.WatchlistFragment
 
 open class BaseActivity : AppCompatActivity() {
     private lateinit var progressDialog: Dialog
@@ -40,34 +44,19 @@ open class BaseActivity : AppCompatActivity() {
 
 
     fun navigationManagement(navigationView: NavigationBarView) {
-        val viewPager = findViewById<ViewPager2>(R.id.vpMainFrame)
-        val pagerAdapter = NavigationAdapter(supportFragmentManager, lifecycle)
-        viewPager.adapter = pagerAdapter
+        val frameLayout = findViewById<FrameLayout>(R.id.flMainFrame)
 
 
         navigationView.setOnItemSelectedListener {
             when(it.itemId) {
-                R.id.navMenuHome -> viewPager.currentItem = 0
-                R.id.navMenuMovie -> viewPager.currentItem = 1
-                R.id.navMenuTV -> viewPager.currentItem = 2
-                R.id.navMenuBookmark -> viewPager.currentItem = 3
-                R.id.navMenuMore -> viewPager.currentItem = 4
+                R.id.navMenuHome -> changeFragment(R.id.flMainFrame, HomeFragment())
+                R.id.navMenuMovie -> changeFragment(R.id.flMainFrame, MovieListFragment())
+                R.id.navMenuTV -> changeFragment(R.id.flMainFrame, TvListFragment())
+                R.id.navMenuBookmark -> changeFragment(R.id.flMainFrame, WatchlistFragment())
+                R.id.navMenuMore -> changeFragment(R.id.flMainFrame, MenuFragment())
             }
             true
         }
-
-
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                when(position) {
-                    0 -> navigationView.selectedItemId = R.id.navMenuHome
-                    1 -> navigationView.selectedItemId = R.id.navMenuMovie
-                    2 -> navigationView.selectedItemId = R.id.navMenuTV
-                    3 -> navigationView.selectedItemId = R.id.navMenuBookmark
-                    4 -> navigationView.selectedItemId = R.id.navMenuMore
-                }
-            }
-        })
 
     }
 

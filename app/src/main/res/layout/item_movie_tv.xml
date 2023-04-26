@@ -76,7 +76,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/ivPoster"
         app:layout_constraintStart_toStartOf="@+id/ivPoster"
         app:layout_constraintTop_toBottomOf="@+id/ivPoster"
-        app:trackThickness="3dp"
+        app:trackThickness="2dp"
         app:trackColor="@color/purple_200" />
 
 

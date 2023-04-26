@@ -6,6 +6,8 @@
     <string name="tv_series">TV Series</string>
     <string name="watchlist">Watchlist</string>
     <string name="more">More</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="_85">85</string>
+    <string name="john_wick">John Wick</string>
+    <string name="percent">%</string>
 </resources>

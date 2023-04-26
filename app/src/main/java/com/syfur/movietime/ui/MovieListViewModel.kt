@@ -8,12 +8,25 @@ import com.syfur.movietime.utils.Repository
 import kotlinx.coroutines.launch
 
 class MovieListViewModel : ViewModel() {
-    val movies = MutableLiveData<List<MovieModel>>()
+    val topRatedMovies = MutableLiveData<List<MovieModel>>()
+    val trendingMovies = MutableLiveData<List<MovieModel>>()
+    val popularMovies = MutableLiveData<List<MovieModel>>()
 
-
-    fun fetchMovies() {
+    fun fetchTopRatedMovies() {
         viewModelScope.launch {
-            movies.value = Repository().popularMovies().results
+            topRatedMovies.value = Repository().topRatedMovies().results
+        }
+    }
+
+    fun fetchTrendingMovies() {
+        viewModelScope.launch {
+            trendingMovies.value = Repository().trendingMovies().results
+        }
+    }
+
+    fun fetchPopularMovies() {
+        viewModelScope.launch {
+            popularMovies.value = Repository().popularMovies().results
         }
     }
 }

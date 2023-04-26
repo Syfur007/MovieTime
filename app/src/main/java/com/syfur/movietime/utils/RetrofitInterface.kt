@@ -11,20 +11,28 @@ import retrofit2.http.Query
 
 interface RetrofitInterface {
 
-    // Returns List of Popular Movies
-    @GET("movie/popular")
-    suspend fun getPopularMovies(
-        @Query("api_key") apiKey: String
-    ): Response<MovieResponse>
-
-    // Returns List of Currently Trending Movies
-    @GET("trending/{movie}/{time_window}")
+    // Movie API Endpoints
+    //
+    // List of Trending Movies
+    @GET("trending/movie/{time_window}")
     suspend fun getTrendingMovies(
         @Path("time_window") time_window: String,
         @Query("api_key") apiKey: String
     ): Response<MovieResponse>
 
-    // Returns List of Movies Relevant to Search Text
+    // List of Popular Movies
+    @GET("movie/popular")
+    suspend fun getPopularMovies(
+        @Query("api_key") apiKey: String
+    ): Response<MovieResponse>
+
+    // List of Top-Rated Movies
+    @GET("movie/top_rated")
+    suspend fun getTopRatedMovies(
+        @Query("api_key") apiKey: String
+    ): Response<MovieResponse>
+
+    // List of Searched Movies
     @GET("search/movie")
     suspend fun searchMovie(
         @Query("api_key") apiKey: String,
@@ -32,9 +40,47 @@ interface RetrofitInterface {
         @Query("page") page: Int = 1
     ): Response<MovieResponse>
 
-    // Returns the Movie with Given ID
+    // Movie with ID
     @GET("movie/{id}")
     suspend fun getMovie(
+        @Path("id") movie_id: Int,
+        @Query("api_key") apiKey: String
+    ): Response<MovieModel>
+
+
+
+    // TV Show API Endpoints
+    //
+    // List of Trending TV Shows
+    @GET("trending/tv/{time_window}")
+    suspend fun getTrendingTVShow(
+        @Path("time_window") time_window: String,
+        @Query("api_key") apiKey: String
+    ): Response<MovieResponse>
+
+    // List of Popular TV Shows
+    @GET("tv/popular")
+    suspend fun getPopularTVShow(
+        @Query("api_key") apiKey: String
+    ): Response<MovieResponse>
+
+    // List of Top-Rated TV Shows
+    @GET("tv/top_rated")
+    suspend fun getTopRatedTVShow(
+        @Query("api_key") apiKey: String
+    ): Response<MovieResponse>
+
+    // List of Searched TV Shows
+    @GET("search/tv")
+    suspend fun searchTVShow(
+        @Query("api_key") apiKey: String,
+        @Query("query") searchQuery: String,
+        @Query("page") page: Int = 1
+    ): Response<MovieResponse>
+
+    // TV Show with ID
+    @GET("tv/{id}")
+    suspend fun getTVShow(
         @Path("id") movie_id: Int,
         @Query("api_key") apiKey: String
     ): Response<MovieModel>

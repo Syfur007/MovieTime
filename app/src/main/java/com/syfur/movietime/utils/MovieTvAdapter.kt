@@ -12,9 +12,9 @@ import com.squareup.picasso.Picasso
 import com.syfur.movietime.R
 import com.syfur.movietime.models.MovieModel
 
-class MovieListAdapter(
-    private val movieList: List<MovieModel>, private val itemCount: Int = movieList.size
-) : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
+class MovieTvAdapter(
+    private val movieTvList: List<MovieModel>, private val itemCount: Int = movieTvList.size
+) : RecyclerView.Adapter<MovieTvAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val poster: ImageView = view.findViewById(R.id.ivPoster)
@@ -24,7 +24,7 @@ class MovieListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie_tv, parent, false)
         return ViewHolder(view)
     }
 
@@ -33,17 +33,17 @@ class MovieListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val posterPath = movieList[position].poster_path
+        val posterPath = movieTvList[position].poster_path
         if (posterPath != null) {
             val url = "https://image.tmdb.org/t/p/w500${posterPath}"
             Picasso.get().load(url).into(holder.poster)
         }
-        val rating = movieList[position].vote_average.times(10)
+        val rating = movieTvList[position].vote_average.times(10)
         holder.rating.text = rating.toInt().toString()
         holder.ratingIndicator.progress = rating.toInt()
         holder.ratingIndicator.setIndicatorColor(ratingIndicatorColor(rating)[0])
         holder.ratingIndicator.trackColor = ratingIndicatorColor(rating)[1]
-        holder.title.text = movieList[position].title
+        holder.title.text = movieTvList[position].title
     }
 
     private fun ratingIndicatorColor(rating: Double): List<Int> {
