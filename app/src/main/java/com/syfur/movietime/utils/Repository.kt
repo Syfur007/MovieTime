@@ -9,74 +9,36 @@ import java.io.IOException
 class Repository {
 
 
-    suspend fun trendingMovies(time_window: String = "week"): MovieResponse {
+    suspend fun fetchMovies(movieType: String, timeWindow: String = "week"): MovieResponse {
         val response = withContext(Dispatchers.IO) {
-            RetrofitInterface.retrofitApi.getTrendingMovies(time_window, Credentials.apiKey)
+            when (movieType) {
+                "trending" -> RetrofitInterface.retrofitApi.getTrendingMovies(timeWindow, Credentials.apiKey)
+                "popular" -> RetrofitInterface.retrofitApi.getPopularMovies(Credentials.apiKey)
+                "top_rated" -> RetrofitInterface.retrofitApi.getTopRatedMovies(Credentials.apiKey)
+                else -> throw IllegalArgumentException("Invalid movie type: $movieType")
+            }
         }
         if (response.isSuccessful) {
             return response.body()!!
         } else {
-            throw IOException("Unable to Fetch Trending Movies")
+            throw IOException("Unable to fetch $movieType movies")
         }
     }
 
 
-    suspend fun popularMovies(): MovieResponse {
+    suspend fun fetchTVShows(tvShowType: String, timeWindow: String = "week"): TvResponse {
         val response = withContext(Dispatchers.IO) {
-            RetrofitInterface.retrofitApi.getPopularMovies(Credentials.apiKey)
+            when (tvShowType) {
+                "trending" -> RetrofitInterface.retrofitApi.getTrendingTVShow(timeWindow, Credentials.apiKey)
+                "popular" -> RetrofitInterface.retrofitApi.getPopularTVShow(Credentials.apiKey)
+                "top_rated" -> RetrofitInterface.retrofitApi.getTopRatedTVShow(Credentials.apiKey)
+                else -> throw IllegalArgumentException("Invalid TV show type: $tvShowType")
+            }
         }
         if (response.isSuccessful) {
             return response.body()!!
         } else {
-            throw IOException("Unable to Fetch Popular Movies")
-        }
-    }
-
-
-    suspend fun topRatedMovies(): MovieResponse {
-        val response = withContext(Dispatchers.IO) {
-            RetrofitInterface.retrofitApi.getTopRatedMovies(Credentials.apiKey)
-        }
-        if (response.isSuccessful) {
-            return response.body()!!
-        } else {
-            throw IOException("Unable to Fetch Trending Movies")
-        }
-    }
-
-
-    suspend fun trendingTVShows(time_window: String = "week"): TvResponse {
-        val response = withContext(Dispatchers.IO) {
-            RetrofitInterface.retrofitApi.getTrendingTVShow(time_window, Credentials.apiKey)
-        }
-        if (response.isSuccessful) {
-            return response.body()!!
-        } else {
-            throw IOException("Unable to Fetch Trending Movies")
-        }
-    }
-
-
-    suspend fun popularTVShows(): TvResponse {
-        val response = withContext(Dispatchers.IO) {
-            RetrofitInterface.retrofitApi.getPopularTVShow(Credentials.apiKey)
-        }
-        if (response.isSuccessful) {
-            return response.body()!!
-        } else {
-            throw IOException("Unable to Fetch Popular Movies")
-        }
-    }
-
-
-    suspend fun topRatedTVShows(): TvResponse {
-        val response = withContext(Dispatchers.IO) {
-            RetrofitInterface.retrofitApi.getTopRatedTVShow(Credentials.apiKey)
-        }
-        if (response.isSuccessful) {
-            return response.body()!!
-        } else {
-            throw IOException("Unable to Fetch Trending Movies")
+            throw IOException("Unable to fetch $tvShowType TV shows")
         }
     }
 }

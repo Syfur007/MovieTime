@@ -14,19 +14,19 @@ class TvListViewModel : ViewModel() {
 
     fun fetchTrendingTv() {
         viewModelScope.launch {
-            trendingTvShows.value = Repository().trendingTVShows().results
+            trendingTvShows.value = Repository().fetchTVShows("trending").results
         }
     }
 
     fun fetchPopularTv() {
         viewModelScope.launch {
-            popularTvShows.value = Repository().popularTVShows().results
+            popularTvShows.value = Repository().fetchTVShows("popular").results
         }
     }
 
     fun fetchTopRatedTv() {
         viewModelScope.launch {
-            topRatedTvShows.value = Repository().topRatedTVShows().results
+            topRatedTvShows.value = Repository().fetchTVShows("top_rated").results
         }
     }
 }

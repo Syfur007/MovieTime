@@ -14,19 +14,19 @@ class MovieListViewModel : ViewModel() {
 
     fun fetchTopRatedMovies() {
         viewModelScope.launch {
-            topRatedMovies.value = Repository().topRatedMovies().results
+            topRatedMovies.value = Repository().fetchMovies("top_rated").results
         }
     }
 
     fun fetchTrendingMovies() {
         viewModelScope.launch {
-            trendingMovies.value = Repository().trendingMovies().results
+            trendingMovies.value = Repository().fetchMovies("trending").results
         }
     }
 
     fun fetchPopularMovies() {
         viewModelScope.launch {
-            popularMovies.value = Repository().popularMovies().results
+            popularMovies.value = Repository().fetchMovies("popular").results
         }
     }
 }
