@@ -41,4 +41,17 @@ class Repository {
             throw IOException("Unable to fetch $tvShowType TV shows")
         }
     }
+
+
+    suspend fun searchEntity(entityName: String): MovieResponse {
+        val response = withContext(Dispatchers.IO) {
+            RetrofitInterface.retrofitApi.searchMovie(Credentials.apiKey, entityName)
+        }
+        if (response.isSuccessful) {
+            return response.body()!!
+        } else {
+            throw IOException("Unable to fetch search $entityName")
+        }
+
+    }
 }

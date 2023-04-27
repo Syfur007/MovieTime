@@ -9,13 +9,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.syfur.movietime.databinding.FragmentTvTopRatedBinding
-import com.syfur.movietime.utils.TvAdapter
+import com.syfur.movietime.models.TvModel
+import com.syfur.movietime.utils.MediaAdapter
 
 
 class TvTopRatedFragment : Fragment() {
     private lateinit var binding: FragmentTvTopRatedBinding
     private lateinit var viewModel: TvListViewModel
-    private lateinit var tvAdapter: TvAdapter
+    private lateinit var mediaAdapter: MediaAdapter<TvModel>
     private lateinit var topRatedTvRecyclerView: RecyclerView
 
     override fun onCreateView(
@@ -32,10 +33,10 @@ class TvTopRatedFragment : Fragment() {
     private fun topRatedTvShows() {
         viewModel.fetchTopRatedTv()
         viewModel.topRatedTvShows.observe(viewLifecycleOwner) {
-            tvAdapter = TvAdapter(it)
+            mediaAdapter = MediaAdapter(it)
             topRatedTvRecyclerView.layoutManager =
                 GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
-            topRatedTvRecyclerView.adapter = tvAdapter
+            topRatedTvRecyclerView.adapter = mediaAdapter
         }
     }
 }

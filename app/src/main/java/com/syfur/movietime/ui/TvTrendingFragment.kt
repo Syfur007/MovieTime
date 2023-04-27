@@ -9,12 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.syfur.movietime.databinding.FragmentTvTrendingBinding
-import com.syfur.movietime.utils.TvAdapter
+import com.syfur.movietime.models.TvModel
+import com.syfur.movietime.utils.MediaAdapter
 
 class TvTrendingFragment : Fragment() {
     private lateinit var binding: FragmentTvTrendingBinding
     private lateinit var viewModel: TvListViewModel
-    private lateinit var tvAdapter: TvAdapter
+    private lateinit var mediaAdapter: MediaAdapter<TvModel>
     private lateinit var trendingTvRecyclerView: RecyclerView
 
 
@@ -32,10 +33,10 @@ class TvTrendingFragment : Fragment() {
     private fun trendingTvShows() {
         viewModel.fetchTrendingTv()
         viewModel.trendingTvShows.observe(viewLifecycleOwner) {
-            tvAdapter = TvAdapter(it)
+            mediaAdapter = MediaAdapter(it)
             trendingTvRecyclerView.layoutManager =
                 GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
-            trendingTvRecyclerView.adapter = tvAdapter
+            trendingTvRecyclerView.adapter = mediaAdapter
         }
     }
 }

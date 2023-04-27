@@ -9,12 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.syfur.movietime.databinding.FragmentMoviesTrendingBinding
-import com.syfur.movietime.utils.MovieAdapter
+import com.syfur.movietime.models.MovieModel
+import com.syfur.movietime.utils.MediaAdapter
 
 class MoviesTrendingFragment : Fragment() {
     private lateinit var binding: FragmentMoviesTrendingBinding
     private lateinit var viewModel: MovieListViewModel
-    private lateinit var moviesAdapter: MovieAdapter
+    private lateinit var moviesAdapter: MediaAdapter<MovieModel>
     private lateinit var trendingMoviesRecyclerView: RecyclerView
 
 
@@ -33,7 +34,7 @@ class MoviesTrendingFragment : Fragment() {
     private fun getTrendingMovies() {
         viewModel.fetchTrendingMovies()
         viewModel.trendingMovies.observe(viewLifecycleOwner) {
-            moviesAdapter = MovieAdapter(it)
+            moviesAdapter = MediaAdapter(it)
             trendingMoviesRecyclerView.layoutManager =
                 GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
             trendingMoviesRecyclerView.adapter = moviesAdapter

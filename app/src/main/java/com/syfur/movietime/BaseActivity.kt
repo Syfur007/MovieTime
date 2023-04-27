@@ -46,11 +46,11 @@ open class BaseActivity : AppCompatActivity() {
 
         navigationView.setOnItemSelectedListener {
             when(it.itemId) {
-                R.id.navMenuHome -> changeFragment(R.id.flMainFrame, HomeFragment(), true)
-                R.id.navMenuMovie -> changeFragment(R.id.flMainFrame, MovieListFragment(), false)
-                R.id.navMenuTV -> changeFragment(R.id.flMainFrame, TvListFragment(), true)
-                R.id.navMenuBookmark -> changeFragment(R.id.flMainFrame, WatchlistFragment(), true)
-                R.id.navMenuMore -> changeFragment(R.id.flMainFrame, MenuFragment(), true)
+                R.id.navMenuHome -> changeFragment(R.id.mainFrame, HomeFragment(), true)
+                R.id.navMenuMovie -> changeFragment(R.id.mainFrame, MovieListFragment(), false)
+                R.id.navMenuTV -> changeFragment(R.id.mainFrame, TvListFragment(), true)
+                R.id.navMenuBookmark -> changeFragment(R.id.mainFrame, WatchlistFragment(), true)
+                R.id.navMenuMore -> changeFragment(R.id.mainFrame, MenuFragment(), true)
             }
             true
         }

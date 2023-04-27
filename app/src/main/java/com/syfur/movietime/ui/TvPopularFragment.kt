@@ -9,12 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.syfur.movietime.databinding.FragmentTvPopularBinding
-import com.syfur.movietime.utils.TvAdapter
+import com.syfur.movietime.models.TvModel
+import com.syfur.movietime.utils.MediaAdapter
 
 class TvPopularFragment : Fragment() {
     private lateinit var binding: FragmentTvPopularBinding
     private lateinit var viewModel: TvListViewModel
-    private lateinit var tvAdapter: TvAdapter
+    private lateinit var mediaAdapter: MediaAdapter<TvModel>
     private lateinit var popularTvRecyclerView: RecyclerView
 
 
@@ -32,10 +33,10 @@ class TvPopularFragment : Fragment() {
     private fun getPopularTvShows() {
         viewModel.fetchPopularTv()
         viewModel.popularTvShows.observe(viewLifecycleOwner) {
-            tvAdapter = TvAdapter(it)
+            mediaAdapter = MediaAdapter(it)
             popularTvRecyclerView.layoutManager =
                 GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
-            popularTvRecyclerView.adapter = tvAdapter
+            popularTvRecyclerView.adapter = mediaAdapter
         }
     }
 }

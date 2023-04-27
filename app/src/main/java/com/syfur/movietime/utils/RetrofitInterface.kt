@@ -90,6 +90,7 @@ interface RetrofitInterface {
 
 
     companion object {
+
         val retrofitApi: RetrofitInterface = Retrofit.Builder()
             .baseUrl(Credentials.baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
