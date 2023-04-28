@@ -1,5 +1,6 @@
 package com.syfur.movietime.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,11 +9,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.syfur.movietime.MovieActivity
 import com.syfur.movietime.databinding.FragmentMoviesTrendingBinding
 import com.syfur.movietime.models.MovieModel
 import com.syfur.movietime.utils.MediaAdapter
 
-class MoviesTrendingFragment : Fragment() {
+class MoviesTrendingFragment : Fragment(), MediaAdapter.OnItemClickListener<MovieModel> {
     private lateinit var binding: FragmentMoviesTrendingBinding
     private lateinit var viewModel: MovieListViewModel
     private lateinit var moviesAdapter: MediaAdapter<MovieModel>
@@ -30,11 +32,18 @@ class MoviesTrendingFragment : Fragment() {
         return binding.root
     }
 
+    override fun onItemClick(media: MovieModel) {
+        val intent = Intent(requireContext(), MovieActivity::class.java)
+        intent.putExtra("movie", media)
+        startActivity(intent)
+
+    }
+
 
     private fun getTrendingMovies() {
         viewModel.fetchTrendingMovies()
         viewModel.trendingMovies.observe(viewLifecycleOwner) {
-            moviesAdapter = MediaAdapter(it)
+            moviesAdapter = MediaAdapter(it, listener = this)
             trendingMoviesRecyclerView.layoutManager =
                 GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
             trendingMoviesRecyclerView.adapter = moviesAdapter

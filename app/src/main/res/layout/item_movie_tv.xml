@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/ivPoster"
         android:layout_width="@dimen/ivPoster_width"
         android:layout_height="@dimen/ivPoster_height"
-        app:riv_corner_radius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="10dp" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -55,8 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:text="@string/percent"
-            android:textSize="8sp"
             android:textColor="@color/white"
+            android:textSize="8sp"
             app:layout_constraintStart_toEndOf="@+id/tvRating"
             app:layout_constraintTop_toTopOf="@+id/tvRating"
             tools:ignore="SmallSp" />
@@ -76,8 +75,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/ivPoster"
         app:layout_constraintStart_toStartOf="@+id/ivPoster"
         app:layout_constraintTop_toBottomOf="@+id/ivPoster"
-        app:trackThickness="2dp"
-        app:trackColor="@color/purple_200" />
+        app:trackColor="@color/purple_200"
+        app:trackThickness="2dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

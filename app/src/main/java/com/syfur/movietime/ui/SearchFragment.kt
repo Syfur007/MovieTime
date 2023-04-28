@@ -1,5 +1,6 @@
 package com.syfur.movietime.ui
 
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,13 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.syfur.movietime.MovieActivity
 import com.syfur.movietime.databinding.FragmentSearchBinding
 import com.syfur.movietime.models.MovieModel
 import com.syfur.movietime.utils.MediaAdapter
 import com.syfur.movietime.viewmodels.MainViewModel
 
 
-class SearchFragment(private val query: String) : BottomSheetDialogFragment() {
+class SearchFragment(private val query: String) : BottomSheetDialogFragment(), MediaAdapter.OnItemClickListener<MovieModel> {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var viewModel: MainViewModel
     private lateinit var recyclerView: RecyclerView
@@ -50,11 +52,18 @@ class SearchFragment(private val query: String) : BottomSheetDialogFragment() {
         behavior.peekHeight = newHeight
     }
 
+    override fun onItemClick(media: MovieModel) {
+        val intent = Intent(requireContext(), MovieActivity::class.java)
+        intent.putExtra("movie", media)
+        startActivity(intent)
+
+    }
+
 
     private fun search() {
         viewModel.searchMovie(query)
         viewModel.searchMovie.observe(viewLifecycleOwner) {
-            adapter = MediaAdapter(it)
+            adapter = MediaAdapter(it, listener = this)
             recyclerView.layoutManager = GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
             recyclerView.adapter = adapter
         }

@@ -15,8 +15,13 @@ import com.syfur.movietime.models.TvModel
 
 class MediaAdapter<T>(
     private val mediaList: List<T>,
-    private val itemCount: Int = mediaList.size
+    private val itemCount: Int = mediaList.size,
+    private val listener: OnItemClickListener<T>? = null
 ): RecyclerView.Adapter<MediaAdapter<T>.ViewHolder>() {
+
+    interface OnItemClickListener<T> {
+        fun onItemClick(media: T)
+    }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val poster: ImageView = view.findViewById(R.id.ivPoster)
@@ -42,7 +47,7 @@ class MediaAdapter<T>(
             else -> null
         }
         if (posterPath != null) {
-            val url = "https://image.tmdb.org/t/p/w500${posterPath}"
+            val url = Credentials.posterUrl + posterPath
             Picasso.get().load(url).into(holder.poster)
         }
         val rating = when (media) {
@@ -59,6 +64,10 @@ class MediaAdapter<T>(
             is TvModel -> media.name
             else -> ""
         }
+
+        holder.itemView.setOnClickListener {
+            listener?.onItemClick(media)
+        }
     }
 
     private fun ratingIndicatorColor(rating: Double): List<Int> {
@@ -67,3 +76,4 @@ class MediaAdapter<T>(
         else listOf(Color.argb(255, 255, 0, 0), Color.argb(50, 255, 0, 0))
     }
 }
+
