@@ -5,7 +5,8 @@ import android.view.Menu
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import com.syfur.movietime.databinding.ActivityMainBinding
-import com.syfur.movietime.ui.SearchFragment
+import com.syfur.movietime.ui.HomeFragment
+import com.syfur.movietime.ui.SearchResultsFragment
 import com.syfur.movietime.viewmodels.MainViewModel
 
 class MainActivity : BaseActivity() {
@@ -17,6 +18,8 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         viewModel = MainViewModel()
         setContentView(binding.root)
+
+        changeFragment(R.id.mainFrame, HomeFragment(), "add")
 
         val toolbar: Toolbar = binding.toolBar
         setSupportActionBar(toolbar)
@@ -37,18 +40,22 @@ class MainActivity : BaseActivity() {
     private fun setupSearchView(menu: Menu) {
         val searchItem = menu.findItem(R.id.menu_search)
         val searchView = searchItem.actionView as SearchView
+        var baseFragment = supportFragmentManager.findFragmentById(R.id.mainFrame)!!
         searchView.queryHint = "Looking for a movie?"
         searchView.setIconifiedByDefault(true)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
-                    val searchFragment = SearchFragment(query)
-                    searchFragment.show(supportFragmentManager, "search_results")
+                    val searchFragment = SearchResultsFragment(query)
+                    changeFragment(R.id.mainFrame, searchFragment, "add")
                 }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                val currentFragment = supportFragmentManager.findFragmentById(R.id.mainFrame)!!
+                if (currentFragment !is SearchResultsFragment) baseFragment = currentFragment
+                changeFragment(R.id.mainFrame, baseFragment)
                 return true
             }
 

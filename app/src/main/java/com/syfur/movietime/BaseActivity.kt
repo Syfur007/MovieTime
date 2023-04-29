@@ -18,16 +18,17 @@ open class BaseActivity : AppCompatActivity() {
 
 
     fun fullScreen() {
-        @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
+            @Suppress("DEPRECATION")
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
     }
+
 
 
     fun showProgressDialog () {
@@ -46,11 +47,11 @@ open class BaseActivity : AppCompatActivity() {
 
         navigationView.setOnItemSelectedListener {
             when(it.itemId) {
-                R.id.navMenuHome -> changeFragment(R.id.mainFrame, HomeFragment(), true)
-                R.id.navMenuMovie -> changeFragment(R.id.mainFrame, MovieListFragment(), false)
-                R.id.navMenuTV -> changeFragment(R.id.mainFrame, TvListFragment(), true)
-                R.id.navMenuBookmark -> changeFragment(R.id.mainFrame, WatchlistFragment(), true)
-                R.id.navMenuMore -> changeFragment(R.id.mainFrame, MenuFragment(), true)
+                R.id.navMenuHome -> changeFragment(R.id.mainFrame, HomeFragment())
+                R.id.navMenuMovie -> changeFragment(R.id.mainFrame, MovieListFragment())
+                R.id.navMenuTV -> changeFragment(R.id.mainFrame, TvListFragment())
+                R.id.navMenuBookmark -> changeFragment(R.id.mainFrame, WatchlistFragment())
+                R.id.navMenuMore -> changeFragment(R.id.mainFrame, MenuFragment())
             }
             true
         }
@@ -58,13 +59,14 @@ open class BaseActivity : AppCompatActivity() {
     }
 
 
-    private fun changeFragment(container: Int, fragment: Fragment, animation: Boolean) {
+    fun changeFragment(container: Int = R.id.mainFrame, fragment: Fragment, action: String = "replace") {
         val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction().replace(container, fragment)
-        if (animation) {
-            fragmentTransaction.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_in_left).commit()
-        } else {
-            fragmentTransaction.commit()
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        when (action) {
+            "add" -> fragmentTransaction.add(container, fragment)
+            "remove" -> fragmentTransaction.remove(fragment)
+            else -> fragmentTransaction.replace(container, fragment)
         }
+        fragmentTransaction.commit()
     }
 }
